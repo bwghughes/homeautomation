@@ -22,6 +22,9 @@ class Lamp(restful.Resource):
         if states.get(lamp_id) == 'Off':
             states[lamp_id] == 'On'
             switch_on(lamp_id)
+        else:
+            states[lamp_id] == 'Off'
+            switch_off(lamp_id)
         return states
 
 api.add_resource(Lamp, '/lamp/<int:lamp_id>')
