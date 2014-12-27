@@ -5,7 +5,7 @@ from astral import Astral
 from energenie import switch_off, switch_on
 
 import logging
-logging.basicConfig(filname='tasks.log', level=logging.INFO)
+logging.basicConfig(filename='tasks.log', level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 
