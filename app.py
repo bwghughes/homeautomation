@@ -1,3 +1,4 @@
+import time
 from flask import Flask, request
 from flask.ext import restful
 
@@ -36,7 +37,11 @@ class LampsResource(restful.Resource):
         for lamp in Lamp.select():
             if lamp.state == 'Off':
                 logger.info('Turning on lamp {}.'.format(lamp.id))
-                switch_on()
+                def on():
+                    for x in xrange(3):
+                        switch_on()
+                        time.sleep(0.3)
+                on()
                 lamp.state = "On"
                 lamp.save()
         return '', 200
