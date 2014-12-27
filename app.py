@@ -44,6 +44,15 @@ class LampsResource(restful.Resource):
                 on()
                 lamp.state = "On"
                 lamp.save()
+            else:
+                logger.info('Turning on lamp {}.'.format(lamp.id))
+                def off():
+                    for x in xrange(3):
+                        switch_off()
+                        time.sleep(0.3)
+                on()
+                lamp.state = "Off"
+                lamp.save()
         return '', 200
 
 
