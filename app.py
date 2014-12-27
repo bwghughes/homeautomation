@@ -10,11 +10,27 @@ logger = logging.getLogger(__name__)
 app = Flask(__name__)
 api = restful.Api(app)
 
-global states = {1: 'Off'}
+states = {1: 'Off'}
+
+
+database = SqliteDatabase('ha.db')
+
+class BaseModel(Model):
+    class Meta:
+        database = database
+
+# the user model specifies its fields (or columns) declaratively, like django
+class Lamp(BaseModel):
+    lamp_name = CharField(unique=True)
+    state = CharField()
+    
+    class Meta:
+        order_by = ('lamp_name',)
+
 
 class Lamps(restful.Resource):
     def get(self):
-        return states
+        return Lamp.objects.all()
 
 
 
