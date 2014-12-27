@@ -1,4 +1,4 @@
-from flask import Flask, request, 200
+from flask import Flask, request
 from flask.ext import restful
 
 from energenie import switch_off, switch_on
