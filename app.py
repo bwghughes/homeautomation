@@ -57,7 +57,7 @@ class LampResource(restful.Resource):
 api.add_resource(LampResource, '/lamp/<int:lamp_id>')
 
 if __name__ == '__main__':
-    Lamp.create_tables(fail_silently=True)
+    Lamp.create_table(fail_silently=True)
     labels = ['Dining Room', 'Kitchen', 'Lounge']
     for x in xrange(3):
         Lamp.create(name=labels[x], state='Off')
