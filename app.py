@@ -23,11 +23,11 @@ class BaseModel(Model):
         database = database
 
 class Lamp(BaseModel):
-    name = CharField(unique=True)
+    name = CharField(unique=False)
     state = CharField()
     
     class Meta:
-        order_by = ('lamp_name',)
+        order_by = ('name',)
 
 
 class LampResource(restful.Resource):
