@@ -22,7 +22,6 @@ class BaseModel(Model):
     class Meta:
         database = database
 
-# the user model specifies its fields (or columns) declaratively, like django
 class Lamp(BaseModel):
     lamp_name = CharField(unique=True)
     state = CharField()
@@ -37,7 +36,7 @@ class Lamps(restful.Resource):
 
 
 
-class Lamp(restful.Resource):
+class LampResource(restful.Resource):
     def get(self, lamp_id):
         return {'lamp_id': states.get(lamp_id)}
 
@@ -55,8 +54,7 @@ class Lamp(restful.Resource):
             lamp.save()
         return '', 200
 
-api.add_resource(Lamp, '/lamp/<int:lamp_id>')
-api.add_resource(Lamps, '/lamps/')
+api.add_resource(LampResource, '/lamp/<int:lamp_id>')
 
 if __name__ == '__main__':
     Lamp.create_tables(fail_silently=True)
