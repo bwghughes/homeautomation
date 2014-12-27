@@ -6,7 +6,7 @@ try:
 except Exception:
     pass
 
-    
+
 import logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -59,7 +59,7 @@ api.add_resource(Lamp, '/lamp/<int:lamp_id>')
 api.add_resource(Lamps, '/lamps/')
 
 if __name__ == '__main__':
-    Lamp.create_table(fail_silently=True)
+    Lamp.create_tables(fail_silently=True)
     labels = ['Dining Room', 'Kitchen', 'Lounge']
     for x in xrange(3):
         Lamp.create(name=labels[x], state='Off')
