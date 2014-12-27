@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, 200
 from flask.ext import restful
 
 from energenie import switch_off, switch_on
@@ -7,11 +7,10 @@ import logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
+from peewee import SqliteDatabase
+
 app = Flask(__name__)
 api = restful.Api(app)
-
-states = {1: 'Off'}
-
 
 database = SqliteDatabase('ha.db')
 
@@ -39,18 +38,25 @@ class Lamp(restful.Resource):
         return {'lamp_id': states.get(lamp_id)}
 
     def put(self, lamp_id):
-        if states.get(lamp_id) == 'Off':
-            states[lamp_id] == 'On'
+        lamp = Lamp.get(Lamp.id == lamp_id)
+        if lamp.state == 'Off':
             switch_on(lamp_id)
             logger.info('Turned lamp on')
+            lamp.state = 'On'
+            lamp.save()
         else:
-            states[lamp_id] == 'Off'
             switch_off(lamp_id)
             logger.info('Turned lamp Off')
-        return states
+            lamp.state = 'Off'
+            lamp.save()
+        return 200
 
 api.add_resource(Lamp, '/lamp/<int:lamp_id>')
 api.add_resource(Lamps, '/lamps/')
 
 if __name__ == '__main__':
+    Lamp.create_table(fail_silently=True)
+    labels = ['Dining Room', 'Kitchen', 'Lounge']
+    for x in xrange(3):
+        Lamp.create(name=labels[x], state='Off')
     app.run("0.0.0.0", debug=True)
