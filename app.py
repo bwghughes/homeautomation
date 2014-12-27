@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request
 from flask.ext import restful
 
 from energenie import switch_off, switch_on
@@ -19,7 +19,6 @@ class Lamp(restful.Resource):
         return {'lamp_id': states.get(lamp_id)}
 
     def put(self, lamp_id):
-        lamp_id = int(request.form['data'].get('lamp_id'))
         if states.get(lamp_id) == 'Off':
             states[lamp_id] == 'On'
             switch_on(lamp_id)
