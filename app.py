@@ -3,6 +3,10 @@ from flask.ext import restful
 
 from energenie import switch_off, switch_on
 
+import logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
 app = Flask(__name__)
 api = restful.Api(app)
 
@@ -22,9 +26,11 @@ class Lamp(restful.Resource):
         if states.get(lamp_id) == 'Off':
             states[lamp_id] == 'On'
             switch_on(lamp_id)
+            logger.info('Turned lamp on')
         else:
             states[lamp_id] == 'Off'
             switch_off(lamp_id)
+            logger.info('Turned lamp Off')
         return states
 
 api.add_resource(Lamp, '/lamp/<int:lamp_id>')
