@@ -30,12 +30,6 @@ class Lamp(BaseModel):
         order_by = ('lamp_name',)
 
 
-class Lamps(restful.Resource):
-    def get(self):
-        return Lamp.objects.all()
-
-
-
 class LampResource(restful.Resource):
     def get(self, lamp_id):
         return {'lamp_id': states.get(lamp_id)}
@@ -59,7 +53,7 @@ api.add_resource(LampResource, '/lamp/<int:lamp_id>')
 if __name__ == '__main__':
     Lamp.drop_table(fail_silently=True)
     Lamp.create_table(fail_silently=True)
-    labels = ['Dining Room', 'Kitchen', 'Lounge']
+    names = ['Dining Room', 'Kitchen', 'Lounge']
     for x in xrange(3):
-        Lamp.create(name=labels[x], state='Off')
+        Lamp.create(name=names[x], state='Off')
     app.run("0.0.0.0", debug=True)
