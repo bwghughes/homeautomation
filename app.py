@@ -49,7 +49,7 @@ class Lamp(restful.Resource):
             logger.info('Turned lamp Off')
             lamp.state = 'Off'
             lamp.save()
-        return 200
+        return '', 200
 
 api.add_resource(Lamp, '/lamp/<int:lamp_id>')
 api.add_resource(Lamps, '/lamps/')
