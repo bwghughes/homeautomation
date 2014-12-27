@@ -23,10 +23,10 @@ def main():
 	sun = city.sun(date=datetime.date.today(), local=True)
 	if is_light_outside(sun['dawn'], sun['dusk']):
 		logger.info("Its light outside, switching off...")
-		switch_off(1)
+		switch_off()
 	else:
 		logger.info("Its dark outside, switching on...")
-		switch_on(1)
+		switch_on()
 
 
 
