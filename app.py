@@ -50,7 +50,7 @@ class LampsResource(restful.Resource):
                     for x in xrange(3):
                         switch_off()
                         time.sleep(0.3)
-                on()
+                off()
                 lamp.state = "Off"
                 lamp.save()
         return '', 200
