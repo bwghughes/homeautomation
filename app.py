@@ -10,7 +10,7 @@ logger = logging.getLogger(__name__)
 app = Flask(__name__)
 api = restful.Api(app)
 
-states = {1: 'Off'}
+global states = {1: 'Off'}
 
 class Lamps(restful.Resource):
     def get(self):
