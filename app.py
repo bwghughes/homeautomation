@@ -10,7 +10,7 @@ class Lamp(restful.Resource):
     def get(self, lamp_id):
         return {'lamp_id': lamp_id}
 
-     def put(self, lamp_id):
+    def put(self, lamp_id):
         lamp_id = request.form['data'].get('lamp_id')
         return {'status': 'OK'}
 
