@@ -9,7 +9,7 @@ api = restful.Api(app)
 states = {1: 'Off'}
 
 class Lamps(restful.Resource):
-    def get(self, lamp_id):
+    def get(self):
         return states
 
 
