@@ -7,7 +7,7 @@ import logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-from peewee import SqliteDatabase
+from peewee import SqliteDatabase, Model
 
 app = Flask(__name__)
 api = restful.Api(app)
