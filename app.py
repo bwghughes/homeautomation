@@ -30,6 +30,19 @@ class Lamp(BaseModel):
         order_by = ('name',)
 
 
+class LampsResource(restful.Resource):
+    
+    def put(self):
+        for lamp in Lamp.select():
+            if lamp.state == 'Off':
+                logger.info('Turning on lamp {}.'.format(lamp.id))
+                switch_on()
+                lamp.state = "On"
+                lamp.save()
+        return '', 200
+
+
+
 class LampResource(restful.Resource):
     def get(self, lamp_id):
         return {'lamp_id': states.get(lamp_id)}
@@ -49,6 +62,7 @@ class LampResource(restful.Resource):
         return '', 200
 
 api.add_resource(LampResource, '/lamp/<int:lamp_id>')
+api.add_resource(LampsResource, '/lamps/')
 
 if __name__ == '__main__':
     Lamp.drop_table(fail_silently=True)
