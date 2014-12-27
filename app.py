@@ -1,13 +1,17 @@
 from flask import Flask, request
 from flask.ext import restful
 
-from energenie import switch_off, switch_on
+try:
+    from energenie import switch_off, switch_on
+except Exception:
+    pass
 
+    
 import logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-from peewee import SqliteDatabase, Model
+from peewee import *
 
 app = Flask(__name__)
 api = restful.Api(app)
