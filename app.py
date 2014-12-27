@@ -26,7 +26,7 @@ class Lamp(restful.Resource):
         return states
 
 api.add_resource(Lamp, '/lamp/<string:lamp_id>')
-api.add_resource(Lamp, '/lamps/')
+api.add_resource(Lamps, '/lamps/')
 
 if __name__ == '__main__':
     app.run("0.0.0.0", debug=True)
