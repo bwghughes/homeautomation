@@ -16,6 +16,7 @@ def qd(comment):
         run('git pull')
         sudo('service supervisord reload', use_sudo=True)
 
+
 @task
 def rebuild():
     with cd ('/home/pi/apps/homeautomation/'):
