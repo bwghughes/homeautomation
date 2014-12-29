@@ -9,11 +9,13 @@ except Exception:
     pass
 
 
+from peewee import *
+
 import logging
 logging.basicConfig(filename='app.log', level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-from peewee import *
+RETRIES = 1
 
 app = Flask(__name__)
 api = restful.Api(app)
@@ -48,7 +50,7 @@ class LampsResource(restful.Resource):
             if lamp.state == 'Off':
                 logger.info('Turning on lamp {}.'.format(lamp.id))
                 def on():
-                    for x in xrange(3):
+                    for x in xrange(RETRIES):
                         switch_on()
                         time.sleep(0.3)
                 on()
@@ -57,7 +59,7 @@ class LampsResource(restful.Resource):
             else:
                 logger.info('Turning on lamp {}.'.format(lamp.id))
                 def off():
-                    for x in xrange(3):
+                    for x in xrange(RETRIES):
                         switch_off()
                         time.sleep(0.3)
                 off()
@@ -94,4 +96,4 @@ if __name__ == '__main__':
     names = ['Dining Room', 'Kitchen', 'Lounge']
     for x in xrange(3):
         Lamp.create(name=names[x], state='Off')
-    app.run("0.0.0.0", debug=True)
+    app.run("0.0.0.0")

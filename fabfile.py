@@ -1,21 +1,31 @@
 from fabric.api import *
 from fabtools import require
+
 import fabtools
+
+env.use_ssh_config = True
+env.hosts = ['lc']
+env.user = 'pi'
+env.key_filename = "/home/ben/.ssh/id_rsa"
+
 
 @task
 def setup():
     # Require a supervisor process for our app
-    require.supervisor.process('myapp',
-        command='/home/myuser/env/bin/gunicorn_paster /home/myuser/env/myapp/production.ini',
-        directory='/home/myuser/env/myapp',
-        user='myuser'
-        )
+    require.supervisor.process('homeautomation',
+        command='python /home/pi/apps/homeautomation/app.py',
+        directory='/home/pi/apps/homeautomation/',
+        user='pi'
+    )
 
     # Require an nginx server proxying to our app
     require.nginx.proxied_site('thehughes.es',
-        docroot='/home/pi/env/myapp/myapp/public',
-        proxy_url='http://127.0.0.1:8888'
-        )
+        docroot='/home/pi/apps/homeautomation/',
+        proxy_url='http://127.0.0.1:5000'
+    )
+
+    # Setup requirements
+    require.python.requirements('/home/pi/apps/homeautomation/requirements.txt')
 
     # Setup a daily cron task
-    fabtools.cron.add_daily('maintenance', 'myuser', 'my_script.py')
+    # fabtools.cron.add_daily('maintenance', 'myuser', 'my_script.py')
