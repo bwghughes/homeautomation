@@ -10,7 +10,7 @@ except Exception:
 
 
 import logging
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(filename='app.log', level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 from peewee import *

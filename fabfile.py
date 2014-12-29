@@ -12,8 +12,8 @@ def setup():
         )
 
     # Require an nginx server proxying to our app
-    require.nginx.proxied_site('example.com',
-        docroot='/home/myuser/env/myapp/myapp/public',
+    require.nginx.proxied_site('thehughes.es',
+        docroot='/home/pi/env/myapp/myapp/public',
         proxy_url='http://127.0.0.1:8888'
         )
 
