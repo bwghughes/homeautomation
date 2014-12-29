@@ -14,7 +14,7 @@ def qd(comment):
     local("git add . && git commit -m \"{}\" && git push origin master".format(comment))
     with cd ('/home/pi/apps/homeautomation/'):
         run('git pull')
-        run('service supervisord reload', use_sudo=True)
+        sudo('service supervisord reload', use_sudo=True)
 
 @task
 def rebuild():
