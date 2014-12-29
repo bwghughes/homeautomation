@@ -15,12 +15,14 @@ import logging
 logging.basicConfig(filename='app.log', level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-RETRIES = 1
+RETRIES = 2
 
 app = Flask(__name__)
 api = restful.Api(app)
 
-database = SqliteDatabase('ha.db')
+database =  PostgresqlDatabase('ha', 
+                                user='homeautomation', 
+                                password='homeautomation')
 
 class BaseModel(Model):
     class Meta:
@@ -91,9 +93,11 @@ api.add_resource(LampResource, '/lamp/<int:lamp_id>')
 api.add_resource(LampsResource, '/lamps/')
 
 if __name__ == '__main__':
-    Lamp.drop_table(fail_silently=True)
-    Lamp.create_table(fail_silently=True)
-    names = ['Dining Room', 'Kitchen', 'Lounge']
-    for x in xrange(3):
-        Lamp.create(name=names[x], state='Off')
+    import sys
+    if sys.argv[1]:
+        Lamp.drop_table(fail_silently=True)
+        Lamp.create_table(fail_silently=True)
+        names = ['Dining Room', 'Kitchen', 'Lounge']
+        for x in xrange(3):
+            Lamp.create(name=names[x], state='Off')
     app.run("0.0.0.0")

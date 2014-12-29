@@ -24,6 +24,11 @@ def setup():
         proxy_url='http://127.0.0.1:5000'
     )
 
+     # Require a PostgreSQL server
+    require.postgres.server()
+    require.postgres.user('homeautomation', 'homeautomation')
+    require.postgres.database('ha', 'homeautomation')
+
     # Setup requirements
     require.python.requirements('/home/pi/apps/homeautomation/requirements.txt')
 
