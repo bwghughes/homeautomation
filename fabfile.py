@@ -10,9 +10,23 @@ env.key_filename = "/home/ben/.ssh/id_rsa"
 
 
 @task
+def qd(comment):
+    local("git add . && git commit -m \"{}\" && git push origin master".format(comment))
+    with cd ('/home/pi/apps/homeautomation/'):
+        run('git pull')
+        run('python app.py rebuild')
+        run('service supervisord reload', use_sudo=True)
+
+
+@task
 def deploy():
     with cd ('/home/pi/apps/homeautomation/'):
         run('git pull')
+
+    # Require some Debian/Ubuntu packages
+    require.deb.packages([
+        'libpq-dev',
+    ])
 
     # Require a supervisor process for our app
     require.supervisor.process('homeautomation',
