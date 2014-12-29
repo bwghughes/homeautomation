@@ -1,6 +1,6 @@
 import time
 import json
-from flask import Flask, request, before_request
+from flask import Flask, request
 from flask.ext import restful
 
 try:
