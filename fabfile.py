@@ -10,7 +10,10 @@ env.key_filename = "/home/ben/.ssh/id_rsa"
 
 
 @task
-def setup():
+def deploy():
+    with cd ('/home/pi/apps/homeautomation/'):
+        run('git pull')
+
     # Require a supervisor process for our app
     require.supervisor.process('homeautomation',
         command='python /home/pi/apps/homeautomation/app.py',
