@@ -25,6 +25,7 @@ def deploy():
 
     # Require some Debian/Ubuntu packages
     require.deb.packages([
+        'python-dev'
         'libpq-dev',
     ])
 
