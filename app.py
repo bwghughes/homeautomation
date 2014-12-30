@@ -21,12 +21,12 @@ app = Flask(__name__)
 api = restful.Api(app)
 
 database =  PostgresqlDatabase('ha', 
-                                user='homeautomation', 
-                                password='homeautomation')
+                                user='postgres')
 
 class BaseModel(Model):
     class Meta:
         database = database
+
 
 class Lamp(BaseModel):
     name = CharField(unique=False)
@@ -94,7 +94,7 @@ api.add_resource(LampsResource, '/lamps/')
 
 if __name__ == '__main__':
     import sys
-    if sys.argv[1]:
+    if sys.argv[1] =='rebuild':
         logger.info('Rebuilding database...')
         Lamp.drop_table(fail_silently=True)
         Lamp.create_table(fail_silently=True)
