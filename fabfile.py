@@ -35,7 +35,7 @@ def deploy():
 
     # Require a supervisor process for our app
     require.supervisor.process('homeautomation',
-        command='python /home/pi/apps/homeautomation/app.py',
+        command='gunicorn -b 127.0.0.1:5000 app:app',
         directory='/home/pi/apps/homeautomation/',
         user='pi'
     )
