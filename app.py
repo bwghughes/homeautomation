@@ -24,6 +24,7 @@ database =  PostgresqlDatabase('ha',
                                 user='homeautomation',
                                 password='homeautomation')
 
+
 class BaseModel(Model):
     class Meta:
         database = database
