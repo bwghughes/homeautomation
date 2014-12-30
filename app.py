@@ -20,7 +20,7 @@ RETRIES = 2
 app = Flask(__name__)
 api = restful.Api(app)
 
-database =  PostgresqlDatabase('ha', 
+database =  PostgresqlDatabase('homeautomation', 
                                 user='homeautomation',
                                 password='homeautomation')
 
