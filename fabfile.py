@@ -26,13 +26,13 @@ def rebuild():
         run('python app.py rebuild')
 
 @task
-def deploy():
+def setup():
     with cd ('/home/pi/apps/homeautomation/'):
         run('git pull')
 
     # Require some Debian/Ubuntu packages
     require.deb.packages([
-        'python-dev'
+        'python-dev',
         'libpq-dev',
     ])
 
