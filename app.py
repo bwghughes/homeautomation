@@ -97,13 +97,16 @@ api.add_resource(LampsResource, '/lamps/')
 
 if __name__ == '__main__':
     import sys
-    if sys.argv[1] =='rebuild':
-        logger.info('Rebuilding database...')
-        Lamp.drop_table(fail_silently=True)
-        Lamp.create_table(fail_silently=True)
-        names = ['Dining Room', 'Kitchen', 'Lounge']
-        for x in xrange(3):
-            Lamp.create(name=names[x], state='Off')
-        logger.info('Done.')
+    try:
+        if sys.argv[1] == 'rebuild':
+            logger.info('Rebuilding database...')
+            Lamp.drop_table(fail_silently=True)
+            Lamp.create_table(fail_silently=True)
+            names = ['Dining Room', 'Kitchen', 'Lounge']
+            for x in xrange(3):
+                Lamp.create(name=names[x], state='Off')
+            logger.info('Done.')
+    except IndexError:
+        pass
     logger.info('Starting app...')
     app.run("0.0.0.0")
