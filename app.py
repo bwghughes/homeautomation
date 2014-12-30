@@ -92,6 +92,7 @@ class LampResource(restful.Resource):
 api.add_resource(LampResource, '/lamp/<int:lamp_id>')
 api.add_resource(LampsResource, '/lamps/')
 
+
 if __name__ == '__main__':
     import sys
     if sys.argv[1] =='rebuild':
