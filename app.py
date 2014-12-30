@@ -110,4 +110,4 @@ if __name__ == '__main__':
     except IndexError:
         pass
     logger.info('Starting app...')
-    app.run("0.0.0.0")
+    app.run("0.0.0.0", debug=True)
