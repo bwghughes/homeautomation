@@ -40,7 +40,7 @@ def setup():
     require.supervisor.process('homeautomation',
         command='gunicorn -b 127.0.0.1:5000 app:app',
         directory='/home/pi/apps/homeautomation/',
-        user='pi'
+        user='root'
     )
 
     # Require an nginx server proxying to our app
