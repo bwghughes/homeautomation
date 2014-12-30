@@ -21,7 +21,8 @@ app = Flask(__name__)
 api = restful.Api(app)
 
 database =  PostgresqlDatabase('ha', 
-                                user='postgres')
+                                user='homeautomation',
+                                password='homeautomation')
 
 class BaseModel(Model):
     class Meta:
