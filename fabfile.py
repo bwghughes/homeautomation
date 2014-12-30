@@ -14,7 +14,10 @@ def qd(comment):
     local("git add . && git commit -m \"{}\" && git push origin master".format(comment))
     with cd ('/home/pi/apps/homeautomation/'):
         run('git pull')
-        sudo('/etc/init.d/supervisor restart')
+
+@task
+def restart():
+    sudo('/etc/init.d/supervisor restart')
 
 
 @task
