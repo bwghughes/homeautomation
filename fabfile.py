@@ -2,6 +2,7 @@ from fabric.api import *
 from fabtools import require
 
 import fabtools
+import requests
 
 env.use_ssh_config = True
 env.hosts = ['lc']
