@@ -47,7 +47,7 @@ class Lamp(BaseModel):
 class LampsResource(restful.Resource):
 
     def get(self):
-
+        pass
     
     def put(self):
         for lamp in Lamp.select():
