@@ -3,11 +3,7 @@ import json
 from flask import Flask, request
 from flask.ext import restful
 
-try:
-    from energenie import switch_off, switch_on
-except Exception:
-    pass
-
+from energenie import switch_off, switch_on
 
 from peewee import *
 
@@ -49,6 +45,9 @@ class Lamp(BaseModel):
 
 
 class LampsResource(restful.Resource):
+
+    def get(self):
+
     
     def put(self):
         for lamp in Lamp.select():
