@@ -1,18 +1,24 @@
 import time
-import json
 from flask import Flask, request
 from flask.ext import restful
 
-from energenie import switch_off, switch_on
+try:
+    from energenie import switch_off, switch_on
+except ImportError:
+    from mock import Mock
+    switch_on = Mock()
+    switch_off = Mock()
+
 
 from peewee import *
 
 
 import logging
-logging.basicConfig(filename='app.log', level=logging.INFO)
+logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 RETRIES = 2
+DELAY = 0.1
 
 app = Flask(__name__)
 api = restful.Api(app)
@@ -37,7 +43,7 @@ class Lamp(BaseModel):
           try:
              r[k] = str(getattr(self, k))
           except:
-             r[k] = json.dumps(getattr(self, k))
+             r[k] = getattr(self, k)
         return str(r)
     
     class Meta:
@@ -47,7 +53,7 @@ class Lamp(BaseModel):
 class LampsResource(restful.Resource):
 
     def get(self):
-        pass
+        return [l.json() for l in Lamp.select()]
     
     def put(self):
         for lamp in Lamp.select():
@@ -56,7 +62,7 @@ class LampsResource(restful.Resource):
                 def on():
                     for x in xrange(RETRIES):
                         switch_on()
-                        time.sleep(0.3)
+                        time.sleep(0.1)
                 on()
                 lamp.state = "On"
                 lamp.save()
@@ -65,7 +71,7 @@ class LampsResource(restful.Resource):
                 def off():
                     for x in xrange(RETRIES):
                         switch_off()
-                        time.sleep(0.3)
+                        time.sleep(0.1)
                 off()
                 lamp.state = "Off"
                 lamp.save()

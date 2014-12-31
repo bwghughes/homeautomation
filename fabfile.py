@@ -55,7 +55,7 @@ def setup():
     require.postgres.database('ha', 'homeautomation')
 
     # Setup requirements
-    require.python.requirements('/home/pi/apps/homeautomation/requirements.txt')
+    require.python.requirements('/home/pi/apps/homeautomation/requirements/prod.txt')
 
     # Setup a daily cron task
     # fabtools.cron.add_daily('maintenance', 'myuser', 'my_script.py')

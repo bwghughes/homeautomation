@@ -2,7 +2,14 @@ import datetime
 import pytz
 from astral import Astral
 
-from energenie import switch_off, switch_on
+try:
+    from energenie import switch_off, switch_on
+except ImportError:
+    from mock import Mock
+    switch_on = Mock()
+    switch_off = Mock()
+
+
 
 import logging
 logging.basicConfig(filename='job.log', level=logging.INFO)
